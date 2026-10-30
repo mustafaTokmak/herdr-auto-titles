@@ -9,14 +9,21 @@ jobs:
       matrix:
         os: [ubuntu-22.04, macos-15, windows-2022]
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
         with:
           node-version: 22
+      - uses: dtolnay/rust-toolchain@683b588c487a69d01f6c6ddf40f036ff682cc2c8
+        with:
+          toolchain: stable
+      - run: cargo fmt --check
+      - run: cargo test --locked
+      - run: cargo build --release --locked
       - run: npm test
       - run: npm run docs:check
+      - run: node scripts/notices.mjs --check
       - name: Linux desktop runtime libraries
         if: runner.os == 'Linux'
         run: |
@@ -24,3 +31,10 @@ jobs:
           sudo apt-get install -y --no-install-recommends libxkbcommon-x11-0 libxcb-xinput0 libvulkan1 libfontconfig1
       - name: Stock Herdr mod compatibility
         run: node scripts/check-mods.mjs
+      - name: Package native runtime
+        run: node scripts/package-native.mjs
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: native-${{ matrix.os }}
+          path: dist/*
+          if-no-files-found: error

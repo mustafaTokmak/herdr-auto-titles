@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Optional Node adapter. The GPUI mod does not load or start this process.
-import { install, uninstall, status, enable, disable, runApp } from './install.mjs';
+import { install, uninstall, status, enable, disable, runApp, metadata } from './install.mjs';
 import { readFile } from 'node:fs/promises';
 import { homedir } from 'node:os';
 import { join, resolve } from 'node:path';
@@ -47,7 +47,7 @@ export async function callTool(name, args = {}, run = runApp) {
   return { source: 'last-rendered', ...snapshot };
 }
 
-const serverInfo = { name: 'herdr-titles', version: '1.0.0' };
+const serverInfo = { name: 'herdr-titles', version: metadata.version };
 // A deliberately small MCP 2025-11-25 stdio server; no network transport is
 // enabled by MCP startup. Newer clients can negotiate this supported revision.
 export async function rpc(request, call = callTool) {

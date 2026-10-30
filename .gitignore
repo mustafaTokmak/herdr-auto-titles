@@ -2,3 +2,5 @@ node_modules/
 *.error
 **/gpui-kit.d.ts
 **/jsconfig.json
+/target/
+/dist/

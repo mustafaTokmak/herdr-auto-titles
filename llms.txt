@@ -1,7 +1,7 @@
 # Herdr Auto Titles
 
-An independent mod bundle for the Herdr desktop app (0.1.9+). Requires Node 22+
-for installation and agent tools. This is not an old Herdr TUI plugin, an app
+An independent mod bundle for the Herdr desktop app (0.1.9+). Ships as a self-contained Rust executable; Node is not required at runtime.
+Herdr itself loads the embedded JavaScript UI mods. This is not an old Herdr TUI plugin, an app
 fork or an official Herdr release.
 
 | Action | MCP tool | JSON API | CLI |

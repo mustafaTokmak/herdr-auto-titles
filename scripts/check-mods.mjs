@@ -33,7 +33,8 @@ try{
  await exec('tar',['-xzf',archive,'-C',dir]);
  const candidates=await binaries(dir);if(candidates.length!==1) throw Error('Expected one app binary: '+JSON.stringify(candidates));
  const home=join(dir,'home');await mkdir(join(home,'mods'),{recursive:true});await mkdir(join(home,'layouts'));
- const {stdout}=await exec(process.execPath,[fileURLToPath(new URL('../agent.mjs',import.meta.url)),'install','--no-activate'],{
+ const binary=process.env.HERDR_AUTO_TITLES_BIN || fileURLToPath(new URL('../target/release/herdr-auto-titles'+(process.platform==='win32'?'.exe':''),import.meta.url));
+ const {stdout}=await exec(binary,['install','--no-activate'],{
   env:{...process.env,HERDR_APP_BIN:candidates[0],HERDR_APP_HOME:home},timeout:180000,maxBuffer:8*1024*1024,
  });
  console.log(stdout.trim());

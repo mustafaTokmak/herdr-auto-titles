@@ -1,6 +1,6 @@
 {
   "name": "herdr-auto-titles",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "kind": "herdr-app-mod-bundle",
   "herdrApp": ">=0.1.9",
   "license": "Apache-2.0",

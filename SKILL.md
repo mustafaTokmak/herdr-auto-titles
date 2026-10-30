@@ -5,23 +5,27 @@ description: Install, inspect, activate, disable or remove the independent Herdr
 
 # Herdr Auto Titles
 
-An independent mod bundle for the Herdr desktop app (0.1.9+). Requires Node 22+
-for installation and agent tools. This is not an old Herdr TUI plugin, an app
+An independent mod bundle for the Herdr desktop app (0.1.9+). Ships as a self-contained Rust executable; Node is not required at runtime.
+Herdr itself loads the embedded JavaScript UI mods. This is not an old Herdr TUI plugin, an app
 fork or an official Herdr release.
 
-Clone https://github.com/mustafaTokmak/herdr-auto-titles and keep the checkout
-for updates and agent tools. Run `node agent.mjs install` from that checkout.
-Herdr must have been opened once. The installer validates every mod, installs
-only namespaced files, and activates the main Auto Titles layout. Use
-`node agent.mjs install --no-activate` to install without changing the layout.
+Download the native executable for your OS from
+https://github.com/mustafaTokmak/herdr-auto-titles/releases/latest. Keep it for
+updates and agent tools; the mod payload is embedded, so no checkout is needed.
+Run `herdr-auto-titles install` after opening Herdr once. Use
+`herdr-auto-titles install --no-activate` to install without switching layouts.
+From source: `cargo build --release --locked`, then use the binary in target/release.
 HERDR_APP_HOME selects the target app home (otherwise XDG_CONFIG_HOME/herdr-app
 or ~/.config/herdr-app). HERDR_APP_BIN selects the app executable if needed.
 
-Run `node agent.mjs` with no arguments for MCP stdio (protocol 2025-11-25).
-Use `node agent.mjs --http 0` for the loopback JSON API; it prints its URL.
+Run `herdr-auto-titles` with no arguments for MCP stdio (protocol 2025-11-25).
+Use `herdr-auto-titles --http 0` for the loopback JSON API; it prints its URL.
 GET /v1/tools lists the same schemas. POST bodies are JSON arguments below.
 The CLI commands listed in the table print JSON. `enable` takes main, terminals
 or win98; `rename` takes an exact tab ID and a name (empty string for automatic).
+The same Rust handlers serve CLI, HTTP and MCP. Existing v1 installation receipts
+and tool names are supported. The old Node scripts remain optional compatibility
+entry points in the source repository, not dependencies of the native binary.
 
 | Action | MCP tool | JSON API | CLI |
 |---|---|---|---|
@@ -59,7 +63,7 @@ handled by Herdr itself retain the stock preview.
 ## Copy-paste agent prompt
 
 > Install the independent Herdr Auto Titles mod from github.com/mustafaTokmak/herdr-auto-titles
-> using its herdr_auto_titles_install tool or node agent.mjs install. Preserve my
+> using its herdr_auto_titles_install tool or herdr-auto-titles install. Preserve my
 > custom files and names, do not restart Herdr or its terminals, and verify that
 > herdr_auto_titles_status reports an active plugin layout. Use herdr_titles_list
 > to inspect titles. For a tab I identify, use herdr_tab_title_set with its exact ID

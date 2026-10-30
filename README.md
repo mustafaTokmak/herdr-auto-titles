@@ -1,6 +1,6 @@
 # Herdr Auto Titles
 
-Automatic task titles for the **Herdr desktop app**, packaged as an independent mod bundle. No custom Herdr build or upstream PR is required.
+Automatic task titles for the **Herdr desktop app**, packaged as an independent mod bundle. The installer, CLI, JSON API and MCP server run in Rust. The small UI mods remain JavaScript because that is Herdr’s extension interface. No Node runtime, custom Herdr build or source checkout is required.
 
 - Task titles across tabs, pane headers, agent rows, sub-agent previews and the tab picker.
 - Spinner noise removed; program/folder labels when an agent does not report a task title.
@@ -14,43 +14,44 @@ This is a desktop mod bundle, **not a plugin for the old Herdr TUI**. It does no
 
 ## Install
 
-Requires Herdr desktop **0.1.9+** and Node **22+**. Open Herdr once first.
+Requires Herdr desktop **0.1.9+**. Open Herdr once first, then download and extract the native archive for your platform from [Releases](https://github.com/mustafaTokmak/herdr-auto-titles/releases/latest): Linux x86-64, macOS Apple Silicon, or Windows x86-64.
 
 ```sh
-git clone https://github.com/mustafaTokmak/herdr-auto-titles
-cd herdr-auto-titles
-node agent.mjs install
+./herdr-auto-titles install
 ```
+
+On Windows use `.\herdr-auto-titles.exe install`. Keep the executable for later commands. It embeds the entire mod payload and works outside this repository; Node is not required. Unsigned binaries may require your operating system's normal trust approval.
 
 The installer checks all 11 mods, installs files under `mods/auto-titles-*` and `layouts/auto-titles-*`, and selects `auto-titles-main`. Your terminals and sessions stay running. It never overwrites built-in mods, layouts, or settings. Standard picker shortcuts are redirected only inside the plugin layouts; custom shortcuts are preserved.
 
 Set `HERDR_APP_BIN` to the Herdr executable if it is not on PATH. `HERDR_APP_HOME` selects a different app home. These variables apply to all commands and agent tools.
 
-To install without switching layouts:
-
 ```sh
-node agent.mjs install --no-activate
+./herdr-auto-titles install --no-activate
+./herdr-auto-titles enable main       # or terminals / win98
+./herdr-auto-titles status
 ```
 
-Then select an `auto-titles-*` layout in Herdr's layout picker, or:
+From source, build with Rust:
 
 ```sh
-node agent.mjs enable main       # or terminals / win98
-node agent.mjs status
+cargo build --release --locked
+./target/release/herdr-auto-titles install
 ```
 
 ## Update or remove
 
-Keep the checkout for updates and agent tools.
+Download the newer executable and run `install` again. Existing v1 Node installations and receipts are supported.
 
 ```sh
-git pull --ff-only
-node agent.mjs install           # update; validates ownership before writing
-node agent.mjs disable           # return to the layout used before enabling
-node agent.mjs uninstall         # remove only owned files and scoped shortcuts
+./herdr-auto-titles install       # update; validates ownership before writing
+./herdr-auto-titles disable       # return to the previous layout
+./herdr-auto-titles uninstall     # remove owned files and scoped shortcuts
 ```
 
-Updates and removal refuse locally edited plugin files rather than discarding changes. Save edits in a separate clone first. Files you add inside a plugin folder are retained. An installation receipt lives at `data/herdr-auto-titles/installation.json`. If Herdr is closed, installation succeeds and reports that activation is pending; open Herdr and run `enable`. Offline removal leaves Herdr to fall back to its stock layout on the next start.
+Updates and removal refuse locally edited plugin files. Save edits in a separate clone first. Files you add inside a plugin folder are retained. A receipt and operation lock live under `data/herdr-auto-titles/`; the small lock file remains after removal. The native installer serializes writes and checks ownership again after mod validation. Win98's normal pixel-grid scaling is recognized; other layout edits are protected.
+
+If Herdr is closed, installation succeeds and reports that activation is pending; open Herdr and run `enable`. Offline removal leaves Herdr to fall back to its stock layout on the next start.
 
 ## Names and existing tabs
 
@@ -65,14 +66,14 @@ Custom layouts are not rewritten. The bundle uses its own copies of Herdr 0.1.9'
 All plugin workflows have equivalent JSON API endpoints and MCP tools, including install, update, activation and uninstall. The source of truth is [agent-tools.json](agent-tools.json); [llms.txt](llms.txt), [llms-full.txt](llms-full.txt) and [SKILL.md](SKILL.md) are generated from it.
 
 ```sh
-node agent.mjs                   # MCP stdio server
-node agent.mjs --http 0          # loopback API; prints the URL
-node agent.mjs list              # rendered titles and automatic/manual modes
-node agent.mjs rename TAB_ID "Fix login"  # pin a name
-node agent.mjs rename TAB_ID ""           # automatic again
+./herdr-auto-titles             # MCP stdio server
+./herdr-auto-titles --http 0          # loopback API; prints the URL
+./herdr-auto-titles list              # rendered titles and automatic/manual modes
+./herdr-auto-titles rename TAB_ID "Fix login"  # pin a name
+./herdr-auto-titles rename TAB_ID ""           # automatic again
 ```
 
-Configure an MCP client with `command: "node"` and `args: ["/absolute/path/to/herdr-auto-titles/agent.mjs"]`. Keep stdout dedicated to MCP when running without arguments. The HTTP interface is for local agent clients and rejects browser origins and non-loopback hosts.
+Configure an MCP client with `command: "/absolute/path/to/herdr-auto-titles"` (or the `.exe` on Windows) and no arguments. All transports use the same Rust handlers. Keep stdout dedicated to MCP when running without arguments. The HTTP interface is for local agent clients and rejects browser origins and non-loopback hosts.
 
 Copy-paste prompt:
 
@@ -81,12 +82,13 @@ Copy-paste prompt:
 ## Development
 
 ```sh
-npm test
+cargo test --locked
+npm test                       # JavaScript UI and optional legacy adapter tests
 npm run docs
 npm run docs:check
 ```
 
-Tests cover titles, all agent transports, lifecycle ownership, local-edit protection, scoped shortcuts, symlink escapes, cleanup, generated documentation and API/MCP coverage. The mod files are self-contained so they can be cloned independently.
+Tests cover titles, native MCP/HTTP processes, execution outside the checkout without Node, v1 receipt upgrades, lifecycle ownership, local-edit protection, scoped shortcuts, symlink escapes, cleanup, generated documentation and API/MCP coverage. Node 22+ is used only for developer tests/docs generation and the optional v1 compatibility scripts (`agent.mjs`, `install.mjs`). The mod files are self-contained so they can be cloned independently.
 
 ## License and upstream
 
