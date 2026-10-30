@@ -1,0 +1,21 @@
+name: test
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  standalone:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-22.04, macos-15, windows-2022]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: 22
+      - run: npm test
+      - run: npm run docs:check
+      - name: Stock Herdr mod compatibility
+        run: node scripts/check-mods.mjs

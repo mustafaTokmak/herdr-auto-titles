@@ -1,0 +1,16 @@
+{
+  "name": "herdr-auto-titles",
+  "version": "1.0.0",
+  "kind": "herdr-app-mod-bundle",
+  "herdrApp": ">=0.1.9",
+  "license": "Apache-2.0",
+  "layouts": [
+    "main",
+    "terminals",
+    "win98"
+  ],
+  "upstream": {
+    "repository": "https://github.com/herdrdev/herdr-app",
+    "commit": "3e32d75e7aa2327d7b1f89caf3d5dafd1f44f1b2"
+  }
+}

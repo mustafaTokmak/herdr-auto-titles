@@ -1,0 +1,16 @@
+Herdr Auto Titles
+
+This independent mod bundle contains modified Herdr desktop mods/layouts from
+herdrdev/herdr-app 0.1.9 (3e32d75), licensed under Apache-2.0.
+Source: https://github.com/herdrdev/herdr-app
+Changes: automatic title policy, manual reset, agent snapshots, standalone
+namespaces, custom preview routing, packaging and the API/MCP adapter.
+This project is not an official Herdr release.
+
+Lucide/Feather SVG icons: licenses/LICENSE-Lucide.txt.
+Win98 artwork: Herdr, Apache-2.0. Its fonts retain their upstream notices:
+- Pixelated MS Sans Serif: https://github.com/jdan/98.css; font conversion unchanged.
+  payload/mods/auto-titles-win98/fonts/LICENSE-MSSansSerif.txt and
+  licenses/CC-BY-SA-3.0.txt.
+- PxPlus IBM VGA: https://int10h.org/oldschool-pc-fonts/;
+  payload/mods/auto-titles-win98/fonts/LICENSE-PxPlus.txt.
