@@ -5,9 +5,16 @@ description: Install, inspect, activate, disable or remove the independent Herdr
 
 # Herdr Auto Titles
 
-An independent mod bundle for the Herdr desktop app (0.1.9+). Ships as a self-contained Rust executable; Node is not required at runtime.
+A community mod for the Herdr desktop app (0.1.9+). Ships as a self-contained Rust executable; Node is not required at runtime.
 Herdr itself loads the embedded JavaScript UI mods. This is not an old Herdr TUI plugin, an app
 fork or an official Herdr release.
+
+For the mods-only community distribution, read
+https://github.com/mustafaTokmak/herdr-auto-titles/tree/main/community/auto-titles/RECIPE.md.
+It contains no layouts. Its recipe explains fitting the modules to a personal copy
+of an existing layout. Manual copies are not owned by the native install receipt.
+The native installer remains an optional ready-configured setup with three layouts;
+do not mix its managed files with a manual installation.
 
 Download the native executable for your OS from
 https://github.com/mustafaTokmak/herdr-auto-titles/releases/latest. Keep it for

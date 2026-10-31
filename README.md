@@ -1,6 +1,6 @@
 # Herdr Auto Titles
 
-Automatic task titles for the **Herdr desktop app**, packaged as an independent mod bundle. The installer, CLI, JSON API and MCP server run in Rust. The small UI mods remain JavaScript because that is Herdr’s extension interface. No Node runtime, custom Herdr build or source checkout is required.
+Automatic task titles for the **Herdr desktop app**, distributed as a **community mod**. The installer, CLI, JSON API and MCP server run in Rust. The small UI mods remain JavaScript because that is Herdr’s extension interface. No Node runtime, custom Herdr build or source checkout is required.
 
 - Task titles across tabs, pane headers, agent rows, sub-agent previews and the tab picker.
 - Spinner noise removed; program/folder labels when an agent does not report a task title.
@@ -8,11 +8,26 @@ Automatic task titles for the **Herdr desktop app**, packaged as an independent 
 - Three layouts: `auto-titles-main`, `auto-titles-terminals`, `auto-titles-win98`.
 - Matching CLI, JSON API, MCP tools and generated agent documentation.
 
-This is a desktop mod bundle, **not a plugin for the old Herdr TUI**. It does not generate AI summaries or read transcripts.
+This is a desktop mod, **not a plugin for the old Herdr TUI**. It does not generate AI summaries or read transcripts.
 
 ![Automatic titles in stock Herdr, using a synthetic agent session](preview.png)
 
-## Install
+## Add the mod to your layout
+
+The [community mod package](community/auto-titles/RECIPE.md) contains the recipe,
+preview, `mods/auto-titles-*` folders and agent reference, with **no layouts**.
+Give that folder to your agent to add the title modules to a personal copy of your
+current layout. It preserves your arrangement and manual names. The repository
+uses the `herdr-mod` topic for discovery at [Herdr Mods](https://herdr.dev/mods/).
+
+> Add the Auto Titles mod from https://github.com/mustafaTokmak/herdr-auto-titles/tree/main/community/auto-titles to my current Herdr layout. Read its recipe and files first, preserve my custom controls and manual names, validate the mods, and keep my sessions running. Verify the rendered titles using the documented CLI/API/MCP interface.
+
+## Optional native installer
+
+The existing installer remains available for a ready-configured setup. It installs
+the same mods plus three supporting layouts; it does not use the manual gallery
+installation's ownership. Choose one installation method.
+
 
 Requires Herdr desktop **0.1.9+**. Open Herdr once first, then download and extract the native archive for your platform from [Releases](https://github.com/mustafaTokmak/herdr-auto-titles/releases/latest): Linux x86-64, macOS Apple Silicon, or Windows x86-64.
 
@@ -86,6 +101,8 @@ cargo test --locked
 npm test                       # JavaScript UI and optional legacy adapter tests
 npm run docs
 npm run docs:check
+npm run gallery                # refresh the mods-only gallery package
+npm run gallery:check          # reject missing or stale gallery files
 ```
 
 Tests cover titles, native MCP/HTTP processes, execution outside the checkout without Node, v1 receipt upgrades, lifecycle ownership, local-edit protection, scoped shortcuts, symlink escapes, cleanup, generated documentation and API/MCP coverage. Node 22+ is used only for developer tests/docs generation and the optional v1 compatibility scripts (`agent.mjs`, `install.mjs`). The mod files are self-contained so they can be cloned independently.

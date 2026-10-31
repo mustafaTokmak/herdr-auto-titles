@@ -7,3 +7,5 @@ Keep payload files namespaced under auto-titles-*. Never overwrite built-in app 
 Every plugin workflow needs matching JSON API, MCP and CLI interfaces in agent-tools.json. Generate llms.txt, llms-full.txt and SKILL.md with npm run docs. Run cargo test --locked, npm test and npm run docs:check before publishing. The Rust executable is the primary runtime; Node is used for developer tests/docs and optional v1 compatibility only. Keep the payload embedded so release executables work outside the checkout. Validate changed mods with the stock herdr-app check command in a scratch copy so generated type files do not enter the payload.
 
 The payload includes modified Apache-2.0 Herdr UI code; retain NOTICE and bundled font/icon licenses. Title logic is copied per mod to keep clones independent; tests check those copies.
+
+The gallery distribution is community/auto-titles: RECIPE.md plus generated mods, preview and agent references, never layouts. Generate it with npm run gallery after payload/docs changes; npm run gallery:check fails CI on drift. Preserve the optional native installer and its v1 receipt/layout compatibility.

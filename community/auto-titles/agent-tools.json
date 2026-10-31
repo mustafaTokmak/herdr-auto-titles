@@ -1,0 +1,203 @@
+[
+  {
+    "name": "herdr_titles_list",
+    "description": "Read the last rendered titles and manual/automatic modes from the active Auto Titles layout.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "openWorldHint": false
+    },
+    "http": {
+      "method": "GET",
+      "path": "/v1/titles"
+    },
+    "uiActions": [
+      "inspect titles"
+    ],
+    "cli": "list"
+  },
+  {
+    "name": "herdr_tab_title_set",
+    "description": "Pin a tab's manual title, or pass an empty name to resume automatic titles. Use the exact tab ID, including any remote machine prefix.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "http": {
+      "method": "POST",
+      "path": "/v1/tab-title"
+    },
+    "command": "tab.rename",
+    "uiActions": [
+      "Rename",
+      "Use automatic title"
+    ],
+    "cli": "rename"
+  },
+  {
+    "name": "herdr_auto_titles_install",
+    "description": "Install or update the independently namespaced mod bundle. Refuses to overwrite unrelated or locally edited files.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "activate": {
+          "type": "boolean"
+        },
+        "layout": {
+          "type": "string",
+          "enum": [
+            "main",
+            "terminals",
+            "win98"
+          ]
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "http": {
+      "method": "POST",
+      "path": "/v1/install"
+    },
+    "uiActions": [
+      "Install or update"
+    ],
+    "cli": "install"
+  },
+  {
+    "name": "herdr_auto_titles_uninstall",
+    "description": "Remove only plugin-owned, unedited files and restore the previous layout if Herdr is running.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {},
+      "required": [],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "http": {
+      "method": "POST",
+      "path": "/v1/uninstall"
+    },
+    "uiActions": [
+      "Uninstall"
+    ],
+    "cli": "uninstall"
+  },
+  {
+    "name": "herdr_auto_titles_status",
+    "description": "Inspect installation and the active Herdr layout.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {},
+      "required": [],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "http": {
+      "method": "GET",
+      "path": "/v1/status"
+    },
+    "uiActions": [
+      "Inspect installation"
+    ],
+    "cli": "status"
+  },
+  {
+    "name": "herdr_auto_titles_enable",
+    "description": "Switch to one of the installed Auto Titles layouts.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "layout": {
+          "type": "string",
+          "enum": [
+            "main",
+            "terminals",
+            "win98"
+          ]
+        }
+      },
+      "required": [
+        "layout"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "http": {
+      "method": "POST",
+      "path": "/v1/enable"
+    },
+    "uiActions": [
+      "Select Auto Titles layout"
+    ],
+    "cli": "enable"
+  },
+  {
+    "name": "herdr_auto_titles_disable",
+    "description": "Return to the layout used before enabling Auto Titles.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {},
+      "required": [],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "http": {
+      "method": "POST",
+      "path": "/v1/disable"
+    },
+    "uiActions": [
+      "Return to previous layout"
+    ],
+    "cli": "disable"
+  }
+]

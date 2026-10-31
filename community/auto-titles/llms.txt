@@ -1,0 +1,17 @@
+# Herdr Auto Titles
+
+A community mod for the Herdr desktop app (0.1.9+). Ships as a self-contained Rust executable; Node is not required at runtime.
+Herdr itself loads the embedded JavaScript UI mods. This is not an old Herdr TUI plugin, an app
+fork or an official Herdr release.
+
+| Action | MCP tool | JSON API | CLI |
+|---|---|---|---|
+| inspect titles | herdr_titles_list | GET /v1/titles | list |
+| Rename, Use automatic title | herdr_tab_title_set | POST /v1/tab-title | rename |
+| Install or update | herdr_auto_titles_install | POST /v1/install | install |
+| Uninstall | herdr_auto_titles_uninstall | POST /v1/uninstall | uninstall |
+| Inspect installation | herdr_auto_titles_status | GET /v1/status | status |
+| Select Auto Titles layout | herdr_auto_titles_enable | POST /v1/enable | enable |
+| Return to previous layout | herdr_auto_titles_disable | POST /v1/disable | disable |
+
+[Full reference](llms-full.txt) · [Workflow skill](SKILL.md)

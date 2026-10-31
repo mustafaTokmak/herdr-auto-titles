@@ -23,6 +23,7 @@ jobs:
       - run: cargo build --release --locked
       - run: npm test
       - run: npm run docs:check
+      - run: npm run gallery:check
       - run: node scripts/notices.mjs --check
       - name: Linux desktop runtime libraries
         if: runner.os == 'Linux'

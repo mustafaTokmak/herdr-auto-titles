@@ -2,8 +2,15 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { tools } from '../agent.mjs';
 const root = new URL('../', import.meta.url);
 const table = '| Action | MCP tool | JSON API | CLI |\n|---|---|---|---|\n' + tools.map(t=>`| ${t.uiActions.join(', ')} | ${t.name} | ${t.http.method} ${t.http.path} | ${t.cli} |`).join('\n')+'\n';
-const intro = '# Herdr Auto Titles\n\nAn independent mod bundle for the Herdr desktop app (0.1.9+). Ships as a self-contained Rust executable; Node is not required at runtime.\nHerdr itself loads the embedded JavaScript UI mods. This is not an old Herdr TUI plugin, an app\nfork or an official Herdr release.\n\n';
-const setup = `Download the native executable for your OS from
+const intro = '# Herdr Auto Titles\n\nA community mod for the Herdr desktop app (0.1.9+). Ships as a self-contained Rust executable; Node is not required at runtime.\nHerdr itself loads the embedded JavaScript UI mods. This is not an old Herdr TUI plugin, an app\nfork or an official Herdr release.\n\n';
+const setup = `For the mods-only community distribution, read
+https://github.com/mustafaTokmak/herdr-auto-titles/tree/main/community/auto-titles/RECIPE.md.
+It contains no layouts. Its recipe explains fitting the modules to a personal copy
+of an existing layout. Manual copies are not owned by the native install receipt.
+The native installer remains an optional ready-configured setup with three layouts;
+do not mix its managed files with a manual installation.
+
+Download the native executable for your OS from
 https://github.com/mustafaTokmak/herdr-auto-titles/releases/latest. Keep it for
 updates and agent tools; the mod payload is embedded, so no checkout is needed.
 Run \`herdr-auto-titles install\` after opening Herdr once. Use

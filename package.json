@@ -10,7 +10,9 @@
   "scripts": {
     "test": "node --test test/*.test.mjs",
     "docs": "node scripts/docs.mjs",
-    "docs:check": "node scripts/docs.mjs --check"
+    "docs:check": "node scripts/docs.mjs --check",
+    "gallery": "node scripts/gallery.mjs",
+    "gallery:check": "node scripts/gallery.mjs --check"
   },
   "bin": {
     "herdr-auto-titles": "agent.mjs"
